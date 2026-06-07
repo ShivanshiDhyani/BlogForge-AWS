@@ -4,7 +4,7 @@ A serverless AI-powered blog generator built on AWS.
 
 ## Architecture
 
-User → S3/CloudFront (Frontend) → API Gateway → Lambda → Amazon Bedrock → S3 (Blog Storage)
+User → S3(Frontend) → API Gateway → Lambda → Amazon Bedrock → S3 (Blog Storage)
 
 ## Tech Stack
 
