@@ -13,6 +13,8 @@ User → S3/CloudFront (Frontend) → API Gateway → Lambda → Amazon Bedrock 
 - **AWS Lambda** — Python 3.12 serverless function
 - **Amazon Bedrock** — Amazon Nova Micro foundation model
 - **Amazon S3** — Blog file storage
+- **Amazon CloudWatch** — Logs, metrics, and error monitoring
+- **IAM** — Role-based access control for Lambda permissions
 
 ## Features
 
@@ -20,6 +22,7 @@ User → S3/CloudFront (Frontend) → API Gateway → Lambda → Amazon Bedrock 
 - Automatic retry logic with exponential backoff
 - Cross-region inference for better availability
 - Blog saved to S3 with timestamped filename
+- CloudWatch logging for every Lambda invocation
 - Clean editorial UI with copy and download options
 
 ## Setup Instructions
@@ -40,7 +43,12 @@ User → S3/CloudFront (Frontend) → API Gateway → Lambda → Amazon Bedrock 
 - `bedrockbucketoutput` — stores generated blog files
 - `blog-frontend` — hosts the frontend (static website hosting enabled)
 
-### 4. Frontend
+### 4. Monitoring with CloudWatch
+
+All Lambda invocations are automatically logged to CloudWatch under:
+`/aws/lambda/bedrockblog`
+
+### 5. Frontend
 - Update API_URL in index.html with your API Gateway endpoint
 - Upload index.html to your frontend S3 bucket
 
@@ -49,6 +57,7 @@ User → S3/CloudFront (Frontend) → API Gateway → Lambda → Amazon Bedrock 
 - New account token quota limits — solved with cross-region inference
 - Lambda boto3 version outdated — solved with custom Lambda layer
 - IAM permission debugging for bedrock:InvokeModel
+- ThrottlingException handling — implemented exponential backoff with jitter
 
 ## Author
 
